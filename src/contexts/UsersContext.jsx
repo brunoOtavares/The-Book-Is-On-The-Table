@@ -45,28 +45,20 @@ export function UsersProvider({ children }) {
       const querySnapshot = await getDocs(q);
       const results = [];
       
-      querySnapshot.forEach((doc) => {
+      // Process each user from publicUsers
+      for (const doc of querySnapshot.docs) {
         // Não incluir o próprio usuário nos resultados
         if (doc.id !== currentUser?.uid) {
           // Get additional user data from the private users collection
-          getUserById(doc.id).then(userData => {
-            if (userData) {
-              results.push({ id: doc.id, ...userData });
-              setSearchResults([...results]);
-            }
-          });
-        }
-      });
-      
-      // Also add users from publicUsers that don't have additional data
-      querySnapshot.forEach((doc) => {
-        if (doc.id !== currentUser?.uid) {
-          const existsInResults = results.some(user => user.id === doc.id);
-          if (!existsInResults) {
+          const userData = await getUserById(doc.id);
+          if (userData) {
+            results.push({ id: doc.id, ...userData });
+          } else {
+            // If no additional data, use public data
             results.push({ id: doc.id, ...doc.data() });
           }
         }
-      });
+      }
       
       setSearchResults(results);
     } catch (error) {

@@ -3,6 +3,7 @@ import { Search, User, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useUsers } from '../contexts/UsersContext';
 import './UserSearch.css';
+import './DiscoverBooks.css';
 
 const UserSearch = () => {
   const navigate = useNavigate();
@@ -68,16 +69,8 @@ const UserSearch = () => {
                 className="user-search-result-item"
                 onClick={() => selectUser(user)}
               >
-                <div className="user-search-result-avatar">
-                  {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
-                </div>
                 <div className="user-search-result-info">
                   <div className="user-search-result-name">{user.username}</div>
-                  <div className="user-search-result-email">{user.email}</div>
-                  <div className="user-search-result-stats">
-                    <span className="user-search-result-stat">{user.booksCount || 0} livros</span>
-                    <span className="user-search-result-stat">Membro recentemente</span>
-                  </div>
                 </div>
               </div>
             ))}

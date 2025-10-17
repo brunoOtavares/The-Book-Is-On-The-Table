@@ -1,0 +1,145 @@
+.user-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.user-page-loading,
+.user-page-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.user-page-error p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.user-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-light);
+}
+
+.user-page-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-page-avatar {
+  width: 80px;
+  height: 80px;
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.user-page-details h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.user-page-details p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: var(--background-color);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.books-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .user-page-container {
+    padding: 1rem;
+  }
+  
+  .user-page-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .user-page-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .user-page-details h1 {
+    font-size: 1.75rem;
+  }
+  
+  .back-button {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-page-container {
+    padding: 0.75rem;
+  }
+  
+  .user-page-header {
+    padding: 1rem;
+  }
+  
+  .user-page-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  
+  .user-page-details h1 {
+    font-size: 1.5rem;
+  }
+  
+  .back-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}

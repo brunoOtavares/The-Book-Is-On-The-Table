@@ -1,0 +1,275 @@
+.user-profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.user-profile-loading,
+.user-profile-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.user-profile-error p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.user-profile-header {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-light);
+}
+
+.user-profile-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.user-profile-avatar {
+  width: 80px;
+  height: 80px;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.user-profile-details h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.user-profile-details p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.user-profile-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  min-width: 100px;
+  transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+  background-color: var(--surface-color);
+  border-color: var(--accent-color);
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.user-profile-content {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-light);
+}
+
+.user-profile-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color);
+}
+
+.tab-button {
+  flex: 1;
+  padding: 1rem;
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tab-button:hover {
+  color: var(--text-primary);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.tab-button.active {
+  color: var(--accent-color);
+  background-color: var(--surface-color);
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+.user-profile-books {
+  padding: 2rem;
+}
+
+.empty-books {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.empty-books svg {
+  margin-bottom: 1rem;
+  color: var(--border-color);
+}
+
+.empty-books p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Para livros somente leitura */
+.books-grid .book-card-actions {
+  display: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .user-profile-container {
+    padding: 1rem;
+  }
+  
+  .user-profile-header {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .user-profile-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .user-profile-details h1 {
+    font-size: 1.75rem;
+  }
+  
+  .user-profile-stats {
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .stat-item {
+    min-width: 80px;
+    padding: 0.75rem;
+  }
+  
+  .stat-number {
+    font-size: 1.25rem;
+  }
+  
+  .tab-button {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .user-profile-books {
+    padding: 1rem;
+  }
+  
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-profile-container {
+    padding: 0.75rem;
+  }
+  
+  .user-profile-header {
+    padding: 1rem;
+  }
+  
+  .user-profile-avatar {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .user-profile-details h1 {
+    font-size: 1.5rem;
+  }
+  
+  .user-profile-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .stat-item {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .tab-button {
+    padding: 0.75rem 0.25rem;
+    font-size: 0.7rem;
+  }
+  
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+}

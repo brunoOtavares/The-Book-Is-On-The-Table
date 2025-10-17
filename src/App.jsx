@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { BooksProvider } from './contexts/BooksContext';
+import { UsersProvider } from './contexts/UsersContext';
 import Header from './components/Header';
 import UnreadBooks from './components/UnreadBooks';
 import ReadingBooks from './components/ReadingBooks';
 import FinishedBooks from './components/FinishedBooks';
 import AddBookModal from './components/AddBookModal';
+import UserSearch from './components/UserSearch';
+import UserPage from './components/UserPage';
 import Login from './components/Login';
 import Register from './components/Register';
 import './App.css';
@@ -57,46 +60,60 @@ function AppContent() {
   const { currentUser, userData } = useAuth();
 
   return (
-    <div className="app">
-      {currentUser && <Header />}
-      
-      <main className="main-content">
-        <Routes>
-          <Route path="/login" element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          } />
-          
-          <Route path="/register" element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          } />
-          
-          <Route path="/" element={
-            <ProtectedRoute>
-              <div className="books-container">
-                <UnreadBooks />
-                <ReadingBooks />
-                <FinishedBooks />
-              </div>
-              
-              {/* Botão flutuante de adicionar livro */}
-              <button
-                className="fab-add-book"
-                onClick={() => setShowAddModal(true)}
-                title="Adicionar novo livro"
-              >
-                +
-              </button>
-            </ProtectedRoute>
-          } />
-        </Routes>
-      </main>
-      
-      <AddBookModal isOpen={showAddModal} onClose={() => setShowAddModal(false)} />
-    </div>
+    <UsersProvider>
+      <div className="app">
+        {currentUser && <Header />}
+        
+        <main className="main-content">
+          <Routes>
+            <Route path="/login" element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } />
+            
+            <Route path="/register" element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            } />
+            
+            <Route path="/discover" element={
+              <ProtectedRoute>
+                <UserSearch />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/user/:userId" element={
+              <ProtectedRoute>
+                <UserPage />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/" element={
+              <ProtectedRoute>
+                <div className="books-container">
+                  <UnreadBooks />
+                  <ReadingBooks />
+                  <FinishedBooks />
+                </div>
+                
+                {/* Botão flutuante de adicionar livro */}
+                <button
+                  className="fab-add-book"
+                  onClick={() => setShowAddModal(true)}
+                  title="Adicionar novo livro"
+                >
+                  +
+                </button>
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </main>
+        
+        <AddBookModal isOpen={showAddModal} onClose={() => setShowAddModal(false)} />
+      </div>
+    </UsersProvider>
   );
 }
 

@@ -162,6 +162,7 @@ const AddBookModal = ({ isOpen, onClose }) => {
     setSearchResults([]);
   };
 
+
   useEffect(() => {
     const delayedSearch = setTimeout(() => {
       if (searchQuery.trim() && showSearch) {

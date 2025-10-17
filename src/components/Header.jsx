@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Search, BookOpen, Home, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useBooks } from '../contexts/BooksContext';
 import './Header.css';
@@ -7,6 +9,7 @@ export default function Header() {
   const { currentUser, userData, signOut } = useAuth();
   const { getStats } = useBooks();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const location = useLocation();
   
   const stats = getStats();
   const displayName = userData?.username || currentUser?.displayName || 'Usuário';
@@ -26,6 +29,23 @@ export default function Header() {
         <div className="logo">
           <h1>📚 BibliRead</h1>
         </div>
+        
+        <nav className="header-nav">
+          <Link
+            to="/"
+            className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+          >
+            <Home size={18} />
+            <span>Minha Biblioteca</span>
+          </Link>
+          <Link
+            to="/discover"
+            className={`nav-link ${location.pathname === '/discover' ? 'active' : ''}`}
+          >
+            <Search size={18} />
+            <span>Descobrir Leitores</span>
+          </Link>
+        </nav>
         
         <div className="header-stats">
           <div className="stat-item">

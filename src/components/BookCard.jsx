@@ -6,7 +6,7 @@ import { BookOpen, ChevronDown, ChevronUp, Calendar, Building, FileText, Trash2,
 import { useBooks } from '../contexts/BooksContext';
 import './BookCard.css';
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book, isReadOnly = false }) => {
   const { deleteBook, updateBookProgress, updateBookReview, updateBookRating } = useBooks();
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentPageInput, setCurrentPageInput] = useState(book.currentPage?.toString() || '0');
@@ -99,15 +99,17 @@ const BookCard = ({ book }) => {
       transition={{ duration: 0.3, ease: 'easeOut' }}
       className="book-card"
     >
-      <div className="book-card-actions">
-        <button
-          className="book-card-delete-button"
-          onClick={() => deleteBook(book.id)}
-          title="Excluir livro"
-        >
-          <Trash2 size={16} />
-        </button>
-      </div>
+      {!isReadOnly && (
+        <div className="book-card-actions">
+          <button
+            className="book-card-delete-button"
+            onClick={() => deleteBook(book.id)}
+            title="Excluir livro"
+          >
+            <Trash2 size={16} />
+          </button>
+        </div>
+      )}
       {book.cover && !book.cover.includes('placeholder') ? (
         <img src={book.cover} alt={`Capa do livro ${book.title}`} className="book-card-cover" />
       ) : (
@@ -147,6 +149,7 @@ const BookCard = ({ book }) => {
                   rating={rating}
                   onRatingChange={handleRatingChange}
                   size={20}
+                  readonly={isReadOnly}
                 />
                 <span className="book-card-rating-text">{rating > 0 ? `${rating}/5` : 'Avalie este livro'}</span>
               </div>

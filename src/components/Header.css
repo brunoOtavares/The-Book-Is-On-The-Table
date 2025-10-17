@@ -26,6 +26,33 @@
   letter-spacing: -0.25px;
 }
 
+.header-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
+
+.nav-link.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
 .header-stats {
   display: flex;
   gap: 2rem;
@@ -199,6 +226,18 @@
     font-size: 1.5rem;
   }
   
+  .header-nav {
+    gap: 0.5rem;
+  }
+  
+  .nav-link span {
+    display: none;
+  }
+  
+  .nav-link {
+    padding: 0.625rem;
+  }
+  
   .header-stats {
     gap: 1rem;
   }
@@ -228,6 +267,10 @@
   
   .logo h1 {
     font-size: 1.375rem;
+  }
+  
+  .header-nav {
+    display: none;
   }
   
   .header-stats {

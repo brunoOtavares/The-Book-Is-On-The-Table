@@ -34,9 +34,9 @@ export function UsersProvider({ children }) {
 
     setSearching(true);
     try {
-      const usersRef = collection(db, 'users');
+      const publicUsersRef = collection(db, 'publicUsers');
       const q = query(
-        usersRef,
+        publicUsersRef,
         where('username', '>=', username),
         where('username', '<=', username + '\uf8ff'),
         limit(10)
@@ -48,7 +48,23 @@ export function UsersProvider({ children }) {
       querySnapshot.forEach((doc) => {
         // Não incluir o próprio usuário nos resultados
         if (doc.id !== currentUser?.uid) {
-          results.push({ id: doc.id, ...doc.data() });
+          // Get additional user data from the private users collection
+          getUserById(doc.id).then(userData => {
+            if (userData) {
+              results.push({ id: doc.id, ...userData });
+              setSearchResults([...results]);
+            }
+          });
+        }
+      });
+      
+      // Also add users from publicUsers that don't have additional data
+      querySnapshot.forEach((doc) => {
+        if (doc.id !== currentUser?.uid) {
+          const existsInResults = results.some(user => user.id === doc.id);
+          if (!existsInResults) {
+            results.push({ id: doc.id, ...doc.data() });
+          }
         }
       });
       
@@ -66,10 +82,18 @@ export function UsersProvider({ children }) {
     if (!userId) return null;
     
     try {
+      // Primeiro tentar obter da coleção privada
       const userDoc = await getDoc(doc(db, 'users', userId));
       if (userDoc.exists()) {
         return { id: userDoc.id, ...userDoc.data() };
       }
+      
+      // Se não encontrar, tentar obter da coleção pública
+      const publicUserDoc = await getDoc(doc(db, 'publicUsers', userId));
+      if (publicUserDoc.exists()) {
+        return { id: publicUserDoc.id, ...publicUserDoc.data() };
+      }
+      
       return null;
     } catch (error) {
       console.error('Erro ao obter dados do usuário:', error);

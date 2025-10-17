@@ -15,8 +15,10 @@ service cloud.firestore {
     
     // Regras para usuários autenticados
     match /users/{userId} {
-      // Usuários podem ler seus próprios dados
-      allow read: if request.auth != null && request.auth.uid == userId;
+      // Usuários autenticados podem ler dados básicos de outros usuários para busca
+      allow read: if request.auth != null &&
+                    (request.auth.uid == userId ||
+                     resource.data.keys().hasAll(['username', 'email', 'createdAt']));
       
       // Para criar um novo usuário
       allow create: if request.auth != null &&
@@ -30,9 +32,27 @@ service cloud.firestore {
       
       // Regras para a coleção de livros do usuário
       match /books/{bookId} {
-        // Usuários podem ler, escrever, atualizar e deletar seus próprios livros
-        allow read, write, update, delete: if request.auth != null && request.auth.uid == userId;
+        // Usuários podem ler livros de outros usuários (para perfil público)
+        allow read: if request.auth != null;
+        
+        // Usuários podem escrever, atualizar e deletar seus próprios livros
+        allow write, update, delete: if request.auth != null && request.auth.uid == userId;
       }
+    }
+    
+    // Regras para perfis públicos de usuários
+    match /publicUsers/{userId} {
+      // Qualquer usuário autenticado pode ler perfis públicos
+      allow read: if request.auth != null;
+      
+      // Usuários podem criar seu próprio perfil público
+      allow create: if request.auth != null && request.auth.uid == userId;
+      
+      // Usuários podem atualizar seu próprio perfil público
+      allow update: if request.auth != null && request.auth.uid == userId;
+      
+      // Ninguém pode deletar perfis públicos
+      allow delete: if false;
     }
     
     // Regras para dados públicos (se necessário no futuro)

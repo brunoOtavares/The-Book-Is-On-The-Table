@@ -66,6 +66,13 @@ export function AuthProvider({ children }) {
           uid: userCredential.user.uid,
           createdAt: new Date().toISOString()
         });
+        
+        // Criar perfil público do usuário para busca
+        await setDoc(doc(db, 'publicUsers', userCredential.user.uid), {
+          uid: userCredential.user.uid,
+          username,
+          createdAt: new Date().toISOString()
+        });
       } catch (firestoreError) {
         console.error('Erro ao salvar dados no Firestore:', firestoreError);
         // Continuar mesmo se não conseguir salvar no Firestore

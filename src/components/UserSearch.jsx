@@ -43,6 +43,8 @@ const UserSearch = () => {
             value={searchTerm}
             onChange={handleInputChange}
             className="user-search-input"
+            autoComplete="off"
+            autoFocus
           />
         </form>
       </div>

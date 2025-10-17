@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, BookOpen, Home, LogOut } from 'lucide-react';
+import { Search, BookOpen, Home, LogOut, User } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import './Header.css';
 
@@ -27,7 +27,7 @@ export default function Header() {
           <h1>📚 The Book Is On The Table</h1>
         </div>
         
-        <nav className="header-nav">
+        <nav className="header-nav desktop-only">
           <Link
             to="/"
             className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
@@ -46,7 +46,7 @@ export default function Header() {
         
         <div className="header-actions">
           <div className="user-menu">
-            <button 
+            <button
               className="user-button"
               onClick={() => setShowUserMenu(!showUserMenu)}
             >
@@ -69,6 +69,17 @@ export default function Header() {
                   </div>
                 </div>
                 <div className="dropdown-divider"></div>
+                
+                {/* Link para Descobrir Leitores no menu mobile */}
+                <Link
+                  to="/discover"
+                  className="mobile-discover-link"
+                  onClick={() => setShowUserMenu(false)}
+                >
+                  <Search size={16} />
+                  <span>Descobrir Leitores</span>
+                </Link>
+                
                 <button className="logout-button" onClick={handleSignOut}>
                   Sair
                 </button>

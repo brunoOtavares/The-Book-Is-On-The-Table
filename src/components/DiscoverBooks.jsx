@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { UserSearch } from './UserSearch';
-import { UserProfile } from './UserProfile';
+import UserSearch from './UserSearch';
+import UserProfile from './UserProfile';
 import { ArrowLeft } from 'lucide-react';
 import './BookSections.css';
 import './DiscoverBooks.css';

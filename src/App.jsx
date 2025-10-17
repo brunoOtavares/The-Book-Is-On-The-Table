@@ -8,7 +8,7 @@ import UnreadBooks from './components/UnreadBooks';
 import ReadingBooks from './components/ReadingBooks';
 import FinishedBooks from './components/FinishedBooks';
 import AddBookModal from './components/AddBookModal';
-import UserSearch from './components/UserSearch';
+import DiscoverBooks from './components/DiscoverBooks';
 import UserPage from './components/UserPage';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -80,7 +80,7 @@ function AppContent() {
             
             <Route path="/discover" element={
               <ProtectedRoute>
-                <UserSearch />
+                <DiscoverBooks />
               </ProtectedRoute>
             } />
             

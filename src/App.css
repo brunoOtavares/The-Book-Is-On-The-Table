@@ -1,0 +1,230 @@
+/* Importação de fontes profissionais */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+/* Variáveis de cores sóbrias e profissionais */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #34495e;
+  --accent-color: #e67e22;
+  --background-color: #f8f9fa;
+  --surface-color: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --border-color: #dfe6e9;
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-heavy: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* Reset de estilos globais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+  flex: 1;
+}
+
+.books-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Botão flutuante de adicionar livro - estilo mais discreto */
+.fab-add-book {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.2s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fab-add-book:hover {
+  background-color: #d35400;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-heavy);
+}
+
+.fab-add-book:active {
+  transform: translateY(0);
+}
+
+/* Componentes de carregamento */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-radius: 50%;
+  border-top: 3px solid var(--accent-color);
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Componentes de autenticação */
+.login-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.login-prompt-content {
+  text-align: center;
+  max-width: 500px;
+  padding: 3rem;
+}
+
+.login-prompt-content h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.login-prompt-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.login-prompt-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-light);
+}
+
+.login-prompt-button:hover {
+  background-color: #d35400;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Animações globais */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .books-container {
+    padding: 1rem;
+    gap: 2rem;
+  }
+  
+  .fab-add-book {
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 0.75rem;
+  }
+  
+  .books-container {
+    padding: 0.75rem;
+    gap: 1.5rem;
+  }
+  
+  .fab-add-book {
+    width: 44px;
+    height: 44px;
+    font-size: 1.125rem;
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .login-prompt-content {
+    padding: 2rem 1rem;
+  }
+  
+  .login-prompt-content h1 {
+    font-size: 2rem;
+  }
+}

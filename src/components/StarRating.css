@@ -1,0 +1,36 @@
+.star-rating {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.star {
+  transition: color 0.2s ease;
+}
+
+.star-interactive {
+  cursor: pointer;
+}
+
+.star-interactive:hover {
+  transform: scale(1.1);
+}
+
+.star-filled {
+  color: var(--accent-color);
+}
+
+.star-empty {
+  color: var(--border-color);
+}
+
+.star-readonly {
+  cursor: default;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .star-rating {
+    gap: 0.125rem;
+  }
+}

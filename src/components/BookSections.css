@@ -1,0 +1,141 @@
+.book-section {
+  margin-bottom: 2rem;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-light);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-title h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.section-icon {
+  font-size: 1.25rem;
+  color: var(--accent-color);
+}
+
+.book-count {
+  margin-left: auto;
+  background-color: var(--background-color);
+  color: var(--text-secondary);
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.empty-section {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+  background-color: var(--background-color);
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+}
+
+.empty-section p {
+  font-size: 1rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.loading-section {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.loading-section p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Animações sutis */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.book-section {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .book-section {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .section-title h2 {
+    font-size: 1.25rem;
+  }
+  
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-section {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .section-title {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .section-title h2 {
+    font-size: 1.125rem;
+  }
+  
+  .book-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .empty-section {
+    padding: 2rem 1rem;
+  }
+  
+  .book-count {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+  }
+}

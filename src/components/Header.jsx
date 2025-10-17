@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, BookOpen, Home, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { useBooks } from '../contexts/BooksContext';
 import './Header.css';
 
 export default function Header() {
   const { currentUser, userData, signOut } = useAuth();
-  const { getStats } = useBooks();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const location = useLocation();
   
-  const stats = getStats();
   const displayName = userData?.username || currentUser?.displayName || 'Usuário';
 
   async function handleSignOut() {
@@ -27,7 +24,7 @@ export default function Header() {
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <h1>📚 BibliRead</h1>
+          <h1>📚 The Book Is On The Table</h1>
         </div>
         
         <nav className="header-nav">
@@ -46,21 +43,6 @@ export default function Header() {
             <span>Descobrir Leitores</span>
           </Link>
         </nav>
-        
-        <div className="header-stats">
-          <div className="stat-item">
-            <span className="stat-number">{stats.total}</span>
-            <span className="stat-label">Total</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">{stats.reading}</span>
-            <span className="stat-label">Lendo</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">{stats.finished}</span>
-            <span className="stat-label">Concluídos</span>
-          </div>
-        </div>
         
         <div className="header-actions">
           <div className="user-menu">

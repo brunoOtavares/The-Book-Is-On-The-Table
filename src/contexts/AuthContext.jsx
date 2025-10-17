@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { 
+import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
@@ -8,6 +8,7 @@ import {
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
+import { ensurePublicUserExists } from '../utils/migratePublicUsers';
 
 const AuthContext = createContext();
 
@@ -92,7 +93,11 @@ export function AuthProvider({ children }) {
       try {
         const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
         if (userDoc.exists()) {
-          setUserData(userDoc.data());
+          const userData = userDoc.data();
+          setUserData(userData);
+          
+          // Garantir que o perfil público exista
+          await ensurePublicUserExists(userCredential.user.uid, userData);
         }
       } catch (firestoreError) {
         console.error('Erro ao buscar dados do usuário no Firestore:', firestoreError);
@@ -123,15 +128,27 @@ export function AuthProvider({ children }) {
         try {
           const userDoc = await getDoc(doc(db, 'users', user.uid));
           if (userDoc.exists()) {
-            setUserData(userDoc.data());
+            const userData = userDoc.data();
+            setUserData(userData);
+            
+            // Garantir que o perfil público exista
+            await ensurePublicUserExists(user.uid, userData);
           }
         } catch (error) {
           console.error('Erro ao buscar dados do usuário:', error);
           // Definir dados básicos do usuário mesmo que não consiga buscar do Firestore
-          setUserData({
+          const basicUserData = {
             username: user.displayName || 'Usuário',
             email: user.email
-          });
+          };
+          setUserData(basicUserData);
+          
+          // Tentar criar perfil público mesmo com dados básicos
+          try {
+            await ensurePublicUserExists(user.uid, basicUserData);
+          } catch (publicError) {
+            console.error('Erro ao criar perfil público:', publicError);
+          }
         }
       } else {
         setUserData(null);

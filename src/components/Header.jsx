@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, BookOpen, Home, LogOut, User } from 'lucide-react';
+import { Search, BookOpen, Home, LogOut, User, Library } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import './Header.css';
 
@@ -69,6 +69,16 @@ export default function Header() {
                   </div>
                 </div>
                 <div className="dropdown-divider"></div>
+                
+                {/* Link para Minha Biblioteca no menu mobile */}
+                <Link
+                  to="/"
+                  className="mobile-library-link"
+                  onClick={() => setShowUserMenu(false)}
+                >
+                  <Library size={16} />
+                  <span>Minha Biblioteca</span>
+                </Link>
                 
                 {/* Link para Descobrir Leitores no menu mobile */}
                 <Link

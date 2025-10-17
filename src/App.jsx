@@ -12,6 +12,7 @@ import DiscoverBooks from './components/DiscoverBooks';
 import UserPage from './components/UserPage';
 import Login from './components/Login';
 import Register from './components/Register';
+import AdminMigrate from './components/AdminMigrate';
 import './App.css';
 
 // Componente de carregamento
@@ -87,6 +88,12 @@ function AppContent() {
             <Route path="/user/:userId" element={
               <ProtectedRoute>
                 <UserPage />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/admin-migrate" element={
+              <ProtectedRoute>
+                <AdminMigrate />
               </ProtectedRoute>
             } />
             

@@ -69,6 +69,18 @@ export function BooksProvider({ children }) {
       };
       
       await setDoc(newBookRef, bookWithMetadata);
+      
+      // Update the user's public profile to indicate they have books
+      try {
+        const publicUserRef = doc(db, 'publicUsers', currentUser.uid);
+        await setDoc(publicUserRef, {
+          hasBooks: true,
+          lastBookAdded: new Date().toISOString()
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error updating public user profile:', error);
+      }
+      
       return newBookRef.id;
     } catch (error) {
       console.error('Erro ao adicionar livro:', error);
@@ -181,6 +193,18 @@ export function BooksProvider({ children }) {
     try {
       const bookRef = doc(db, 'users', currentUser.uid, 'books', bookId);
       await deleteDoc(bookRef);
+      
+      // Check if user has any remaining books and update public profile
+      try {
+        const remainingBooks = books.filter(book => book.id !== bookId);
+        const publicUserRef = doc(db, 'publicUsers', currentUser.uid);
+        await setDoc(publicUserRef, {
+          hasBooks: remainingBooks.length > 0,
+          lastBookAdded: remainingBooks.length > 0 ? new Date().toISOString() : null
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error updating public user profile after delete:', error);
+      }
     } catch (error) {
       console.error('Erro ao excluir livro:', error);
       throw error; // Propagar o erro para que possa ser tratado pela UI

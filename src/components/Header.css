@@ -207,6 +207,33 @@
   margin: 0;
 }
 
+.mobile-library-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: none;
+  border: none;
+  text-align: left;
+  color: var(--text-primary-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-library-link:hover {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
+
+.mobile-library-link:active {
+  background-color: var(--background-color);
+  transform: scale(0.98);
+}
+
 .mobile-discover-link {
   display: flex;
   align-items: center;
